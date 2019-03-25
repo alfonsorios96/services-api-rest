@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const app = express();
+const PORT = process.env.PORT || 8080;
+
 const services = require('./service');
 
 app.use(cors());
@@ -13,11 +15,11 @@ app.use(bodyParser.json());
 
 
 app.get('/', (request, response) => {
-  response.send('Hello! The API is at http://localhost:3000/api');
+  response.send('Hello! The API is at http://localhost:' + PORT + '/api');
 });
 
 app.get('/users', services.get);
 app.post('/users', services.post);
-app.listen(3000);
+app.listen(PORT);
 
-console.log('Magic happens at http://localhost:3000');
+console.log('Magic happens at http://localhost:' + PORT);

@@ -15,7 +15,6 @@ const getUsers = () => {
 };
 
 const saveUser = users => {
-  let file;
   try {
     fs.writeFileSync('data.json', JSON.stringify(users));
   } catch (error) {
@@ -31,13 +30,13 @@ const get = (request, response) => {
 const post = (request, response) => {
   const user = request.body;
   const users = getUsers();
-  if (users.some(iterator => iterator.user === user.user)) {
+  if (users.results.some(iterator => iterator.email === user.email)) {
     response.status(500).json({
       status: 'error',
       message: 'The user exists'
     });
   } else {
-    users.push(user);
+    users.results.push(user);
     saveUser(users);
     response.status(200).json({
       status: 'success',
