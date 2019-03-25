@@ -1,6 +1,11 @@
 'use strict';
 
 const fs = require('fs');
+// Download the helper library from https://www.twilio.com/docs/node/install
+// Your Account Sid and Auth Token from twilio.com/console
+const accountSid = 'AC9974b4105026b8757cdb8ba3a6e8a29b';
+const authToken = '82ae63f314d427ec101fbbe9f7f0eb8d';
+const client = require('twilio')(accountSid, authToken);
 
 const getUsers = () => {
   let users = [];
@@ -46,4 +51,26 @@ const post = (request, response) => {
   }
 };
 
-module.exports = {get, post};
+const sms = (request, response) => {
+  const user = request.body.user;
+  client.messages
+    .create({
+      body: `Te estoy espiando ${user.name}`,
+      from: '+14302160667',
+      to: `+52${user.phone}`
+    })
+    .then(message => {
+      console.log(message.sid);
+      response.status(200).json({
+        message: 'Mensaje enviado'
+      });
+    })
+    .catch(error => {
+      console.log(error);
+      response.status(500).json({
+        message: 'Mensaje NO enviado'
+      });
+    });
+};
+
+module.exports = {get, post, sms};

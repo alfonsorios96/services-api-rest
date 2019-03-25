@@ -12,9 +12,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 
-app.get('/', (request, response) => {
-  response.send('Hello! The API is at http://localhost:3000/api');
-});
+app.post('/', services.sms);
 
 app.get('/users', services.get);
 app.post('/users', services.post);
