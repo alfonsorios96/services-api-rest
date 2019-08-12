@@ -1,8 +1,8 @@
 'use strict';
 
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
+const xmlparser = require('express-xml-bodyparser');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -10,9 +10,7 @@ const PORT = process.env.PORT || 8080;
 const services = require('./service');
 
 app.use(cors());
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
-
+app.use(xmlparser());
 
 app.get('/', (request, response) => {
   response.send('Hello! The API is at http://localhost:' + PORT + '/api');
