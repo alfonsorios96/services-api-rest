@@ -18,8 +18,7 @@ app.get('/', (request, response) => {
   response.send('Hello! The API is at http://localhost:' + PORT + '/api');
 });
 
-app.get('/users', services.get);
-app.post('/users', services.post);
+app.post('/wp-json/wc/kueskipay/v1/confirmation', services.kueskiConfirmation);
 app.listen(PORT);
 
 console.log('Magic happens at http://localhost:' + PORT);
